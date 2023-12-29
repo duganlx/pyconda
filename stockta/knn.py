@@ -63,33 +63,51 @@ def knn_classify(inx, dataset, labels, k):
     return 'down'
 
 
+def calc_accuracy(expected, actual):
+  expected = list(expected)
+  actual = list(actual)
+
+  if len(expected) != len(actual): 
+    return -1
+  
+  total = len(expected)
+  right = 0
+  i = 0
+  while i < total:
+    if expected[i] == actual[i]:
+      right += 1
+
+    i += 1
+
+  return right / total
+
+
 if __name__ == '__main__':
-  choose = False
+  choose = True
   filename = 'gzmt_dev.csv'
   lcsdk = LocalPySdk()
 
   if choose:
     eamsdk = EamPySdk()
     df = eamsdk.getBardayData(universe=['600519.SH'], where="trade_date > '2023-10-01'")
-    eamsdk.savedf(df, filename=filename)
+    # eamsdk.savedf(df, filename=filename)
   else:  
     df = lcsdk.getData(filename=filename)
 
+  # module 1: data prepare 
+  df = normalize(df)
+  df = generate_label(df)
+  # lcsdk.savedf(df, filename=filename)
+    
   # module 2: kNN
-  # == begin ==
   traindf, testdf = split_dataset(df)
   xtraindf, ytrain = traindf.iloc[:, 2:-1], traindf.iloc[:, -1]
   xtestf, ytest = testdf.iloc[:, 2:-1], testdf.iloc[:, -1]
+  ytest_expect = []
   for _, row in xtestf.iterrows():
     expected = knn_classify(row, xtraindf, ytrain, 10)
-    print(expected)
-    break
-  # == end ==
-
-  # module 1: data prepare 
-  # == begin ==
-  # df = normalize(df)
-  # df = generate_label(df)
-  # lcsdk.savedf(df, filename=filename)
-  # == end ==
+    ytest_expect.append(expected)
   
+  # module 3: result
+  acc = calc_accuracy(ytest_expect, ytest)
+  print(acc)

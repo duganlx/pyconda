@@ -46,7 +46,7 @@ class EamPySdk(object):
     self.user = user
     self.password = password
 
-    print(f"[Basic config] confpath={conf_filepath}, url={url}, user={user}, password={password}")
+    # print(f"[Basic config] confpath={conf_filepath}, url={url}, user={user}, password={password}")
 
   def init_apihandler(self):
     url = self.url
@@ -108,6 +108,9 @@ class EamPySdk(object):
   def savedf(self, df: pd.DataFrame, dir: str = '', filename: str = ''):
     if self.datafolder_path == '':
       raise Exception("data folder path is not configured")
+
+    if not os.path.exists(f"{self.datafolder_path}/{dir}"):
+      os.makedirs(f"{self.datafolder_path}/{dir}")
 
     if len(dir) > 0:
       df.to_csv(f"{self.datafolder_path}/{dir}/{filename}", index=False)

@@ -27,6 +27,9 @@ class LocalPySdk(object):
     if self.datafolder_path == '':
       raise Exception("data folder path is not configured")
 
+    if not os.path.exists(f"{self.datafolder_path}/{dir}"):
+      os.makedirs(f"{self.datafolder_path}/{dir}")
+
     if len(dir) > 0:
       df.to_csv(f"{self.datafolder_path}/{dir}/{filename}", index=False)
       print(f"df has save in {self.datafolder_path}/{dir}/{filename}")
