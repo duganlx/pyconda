@@ -21,7 +21,7 @@ class EamPySdk(object):
   def __init__(self) -> None:
     self.read_config()
     self.init_apihandler()
-    # self.utils = Utils()
+    self.utils = Utils()
   
   def read_config(self) -> None:
     current_path = os.path.dirname(os.path.abspath(__file__))

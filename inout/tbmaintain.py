@@ -58,6 +58,9 @@ def gsf_help_conf():
     [22, 'BarDs 使用', '/examples/bards/bards.md', '2023/11/16', '2023/11/16', 1, '4. DataService系列'],
     [23, 'KLineDs 使用', '/examples/klineds/klineds.md', '2023/11/16', '2023/11/16', 1, '4. DataService系列'],
 
+    # 5. AlphaBase系列
+    [24, 'AlphaBase 使用', '/examples/alphabase/AlphaBaseHelp.md', "2021/01/31", "2021/01/31", 1, "5. AlphaBase 专题"]
+
     # 6. 开发笔记专题
     # [14, '高效哈希表phmap', '/examples/phmap/phmap.md', '2023-08-01', '2023-08-01', 1, '6. 开发笔记专题'],
     # [15, 'C++ memory order', '/examples/memory-model/memory-order.md', '2023-09-01', '2023-09-01', 1, '6. 开发笔记专题']
@@ -75,4 +78,5 @@ def gsf_help_conf():
 
 
 if __name__ == '__main__':
-  settlement_gsjz()
+  # settlement_gsjz()
+  gsf_help_conf()
