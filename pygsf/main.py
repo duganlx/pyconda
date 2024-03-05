@@ -3,7 +3,7 @@
 import json
 from pygsf import PyGsfClient, PyGsfRpc
 
-if True:
+if False:
   rpc = PyGsfRpc()
   
   wwds = rpc.GetClient("WWDS")
@@ -34,10 +34,24 @@ if True:
       start=0,
       length=250,
       last_good=False,
-      universe=["000001.SH", "000001.SZ"],
+      universe=["000001.SH"],
       # date=20231103,
   )
   print(klines)
+
+
+if True: 
+  params1 = {
+      "last_good": False,
+      "start": 0,
+      "length": 260,
+      "universe": ["000001.SZ"],
+      "auction": True,
+  }
+
+  klineds = PyGsfClient(host="192.168.1.187", port=60009)  # 请填入实际的地址和端口
+  df1 = klineds.get_data(serviceName="KLineDs", dataName="*", params=json.dumps(params1))
+  print("\033[1;31m\n192打印\033[0m\n", df1)
 
 if False: 
   # 说明
