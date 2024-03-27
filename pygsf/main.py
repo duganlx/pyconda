@@ -43,7 +43,14 @@ def kLineDs():
   return df
 
 
+def Oms():
+  params = {}
+  cli = PyGsfClient(host="192.168.1.188", port=30005)
+  df = cli.get_data(serviceName="Oms", dataName="get_positions", params=json.dumps(params))
+  return df
+
+
 if __name__ == '__main__':
   # df = barDs()
-  df = indexDs()
+  df = Oms()
   print(df)
